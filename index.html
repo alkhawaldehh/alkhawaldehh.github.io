@@ -1,0 +1,1387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Hassan Al Khawaldeh</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Instrument+Sans:wght@300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet"/>
+<style>
+:root {
+  --sidebar-bg: #16100a;
+  --sidebar-w: 240px;
+  --parchment: #f6f1e9;
+  --parchment-mid: #ede5d2;
+  --parchment-deep: #e3d8c4;
+  --ink: #1a0f06;
+  --ink-muted: #5a3c1e;
+  --ink-dim: #9c7a56;
+  --amber: #c47b1a;
+  --amber-bright: #e09428;
+  --amber-glow: rgba(196,123,26,0.18);
+  --amber-light: #fef3da;
+  --rust: #8b3a0f;
+  --border: rgba(90,60,30,0.14);
+  --border-strong: rgba(90,60,30,0.25);
+  --card-bg: #ffffff;
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Instrument Sans', sans-serif;
+  --mono: 'JetBrains Mono', monospace;
+  --radius: 10px;
+  --radius-lg: 14px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  display: flex;
+  min-height: 100vh;
+  background: var(--parchment);
+  font-family: var(--sans);
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--ink);
+}
+
+/* ── SIDEBAR ─────────────────────────────── */
+.sidebar {
+  width: var(--sidebar-w);
+  min-height: 100vh;
+  background: var(--sidebar-bg);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+  border-right: 1px solid rgba(196,123,26,0.12);
+  overflow-y: auto;
+}
+
+.sidebar-top {
+  padding: 32px 20px 24px;
+  border-bottom: 1px solid rgba(196,123,26,0.1);
+}
+
+.avatar {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #3a1f08, #6b3410);
+  border: 2px solid rgba(196,123,26,0.35);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  color: #e09428;
+  margin-bottom: 14px;
+  letter-spacing: 0.02em;
+}
+
+.sidebar-name {
+  font-family: var(--serif);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #f0e8d8;
+  line-height: 1.3;
+  margin-bottom: 5px;
+}
+
+.sidebar-role {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--amber);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 1.5;
+}
+
+.sidebar-inst {
+  font-size: 0.72rem;
+  color: rgba(240,232,216,0.45);
+  margin-top: 4px;
+}
+
+/* NAV */
+nav {
+  flex: 1;
+  padding: 16px 0;
+}
+
+.nav-group-label {
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  color: rgba(196,123,26,0.5);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 8px 20px 4px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 20px;
+  text-decoration: none;
+  color: rgba(240,232,216,0.55);
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  transition: all 0.18s;
+  position: relative;
+  border-left: 2px solid transparent;
+}
+
+.nav-link svg {
+  width: 15px; height: 15px;
+  opacity: 0.7;
+  flex-shrink: 0;
+  transition: opacity 0.18s;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #f0e8d8;
+  background: rgba(196,123,26,0.08);
+  border-left-color: var(--amber);
+}
+
+.nav-link:hover svg,
+.nav-link.active svg {
+  opacity: 1;
+  color: var(--amber);
+}
+
+.nav-link.active {
+  color: var(--amber-bright);
+}
+
+.nav-badge {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  background: rgba(196,123,26,0.18);
+  color: var(--amber);
+  padding: 2px 7px;
+  border-radius: 100px;
+}
+
+/* SIDEBAR BOTTOM */
+.sidebar-bottom {
+  padding: 16px 20px 24px;
+  border-top: 1px solid rgba(196,123,26,0.1);
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: rgba(240,232,216,0.4);
+  text-decoration: none;
+  padding: 5px 0;
+  transition: color 0.18s;
+  letter-spacing: 0.04em;
+}
+
+.contact-link:hover { color: var(--amber); }
+
+.contact-link svg { width: 12px; height: 12px; flex-shrink: 0; }
+
+/* ── MAIN CONTENT ────────────────────────── */
+.main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  min-height: 100vh;
+  background: var(--parchment);
+}
+
+/* Background texture */
+.main::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 60% 40% at 80% 20%, rgba(196,123,26,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 50% at 20% 80%, rgba(139,58,15,0.05) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* PAGE HEADER */
+.page-header {
+  position: sticky;
+  top: 0;
+  background: rgba(246,241,233,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 36px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 50;
+}
+
+.page-header-title {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.header-pills {
+  display: flex;
+  gap: 8px;
+}
+
+.header-pill {
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  padding: 3px 10px;
+  border-radius: 100px;
+  background: rgba(196,123,26,0.1);
+  color: var(--amber);
+  letter-spacing: 0.08em;
+  border: 1px solid rgba(196,123,26,0.2);
+}
+
+/* CONTENT */
+.content {
+  padding: 36px;
+  position: relative;
+  z-index: 1;
+}
+
+/* SECTIONS */
+.section {
+  margin-bottom: 48px;
+  scroll-margin-top: 70px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.section-icon {
+  width: 32px; height: 32px;
+  border-radius: 8px;
+  background: var(--sidebar-bg);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.section-icon svg { width: 15px; height: 15px; color: var(--amber); }
+
+.section-title {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+}
+
+.section-count {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--ink-dim);
+  background: var(--parchment-deep);
+  padding: 3px 9px;
+  border-radius: 100px;
+  margin-left: auto;
+}
+
+/* ── HERO CARD ───────────────────────────── */
+.hero-card {
+  background: var(--sidebar-bg);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(196,123,26,0.15);
+}
+
+.hero-card::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 240px; height: 240px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,123,26,0.12) 0%, transparent 70%);
+}
+
+.hero-card::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: 30%;
+  width: 180px; height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139,58,15,0.08) 0%, transparent 70%);
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  color: var(--amber);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 20px; height: 1px;
+  background: var(--amber);
+}
+
+.hero-h1 {
+  font-family: var(--serif);
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 400;
+  color: #f0e8d8;
+  line-height: 1.15;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.hero-h1 em { font-style: italic; color: var(--amber-bright); }
+
+.hero-bio {
+  font-size: 0.88rem;
+  color: rgba(240,232,216,0.6);
+  max-width: 560px;
+  line-height: 1.75;
+  margin-bottom: 24px;
+}
+
+.hero-links {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  position: relative; z-index: 1;
+}
+
+.hero-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 8px 18px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.18s;
+  border: 1px solid transparent;
+}
+
+.hero-btn-primary {
+  background: var(--amber);
+  color: #fff;
+  font-weight: 500;
+}
+
+.hero-btn-primary:hover { background: var(--amber-bright); }
+
+.hero-btn-ghost {
+  border-color: rgba(196,123,26,0.3);
+  color: rgba(240,232,216,0.6);
+}
+
+.hero-btn-ghost:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+
+/* ── STATS ROW ───────────────────────────── */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.stat-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+
+.stat-card:hover {
+  border-color: var(--border-strong);
+  box-shadow: 0 2px 12px rgba(90,60,30,0.08);
+}
+
+.stat-num {
+  font-family: var(--serif);
+  font-size: 1.9rem;
+  font-weight: 600;
+  color: var(--amber);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ── ABOUT GRID ──────────────────────────── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  transition: border-color 0.18s;
+}
+
+.card:hover { border-color: var(--border-strong); }
+
+.card-label {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--amber);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.card-text { font-size: 0.85rem; color: var(--ink-muted); line-height: 1.75; }
+.card-text p { margin-bottom: 0.7rem; }
+.card-text p:last-child { margin-bottom: 0; }
+
+.info-rows { display: flex; flex-direction: column; }
+
+.info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.82rem;
+}
+
+.info-row:last-child { border-bottom: none; }
+
+.info-row-key {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--amber);
+  letter-spacing: 0.06em;
+  min-width: 76px;
+  padding-top: 2px;
+  text-transform: uppercase;
+}
+
+.info-row-val { color: var(--ink-muted); }
+.info-row-val a { color: var(--amber); text-decoration: none; }
+.info-row-val a:hover { text-decoration: underline; }
+
+/* ── EDU CARDS ───────────────────────────── */
+.edu-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: 20px;
+  transition: border-color 0.18s;
+}
+
+.edu-card:hover { border-color: var(--border-strong); }
+
+.edu-year {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--amber);
+  letter-spacing: 0.06em;
+  padding-top: 3px;
+  border-right: 1px solid var(--border);
+  padding-right: 20px;
+}
+
+.edu-degree {
+  font-family: var(--serif);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.edu-school { font-size: 0.82rem; color: var(--ink-muted); margin-bottom: 6px; }
+.edu-detail { font-size: 0.78rem; color: var(--ink-dim); font-style: italic; margin-bottom: 2px; }
+
+/* ── RESEARCH TAGS ───────────────────────── */
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-bottom: 18px;
+}
+
+.rtag {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  padding: 5px 12px;
+  border-radius: 100px;
+  border: 1px solid var(--border-strong);
+  color: var(--ink-muted);
+  background: var(--card-bg);
+  letter-spacing: 0.03em;
+  transition: all 0.18s;
+}
+
+.rtag:hover {
+  border-color: var(--amber);
+  color: var(--amber);
+  background: var(--amber-light);
+}
+
+.research-blurb {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--amber);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 16px 20px;
+  font-size: 0.85rem;
+  color: var(--ink-muted);
+  line-height: 1.75;
+}
+
+/* ── PUB ITEMS ───────────────────────────── */
+.pub-group-label {
+  font-family: var(--mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rust);
+  margin: 20px 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pub-group-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+.pub-item {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 8px;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.18s, transform 0.18s;
+}
+
+.pub-item::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(to bottom, var(--amber), var(--rust));
+  opacity: 0;
+  transition: opacity 0.18s;
+}
+
+.pub-item:hover {
+  border-color: var(--border-strong);
+  transform: translateX(2px);
+}
+
+.pub-item:hover::before { opacity: 1; }
+
+.pub-title {
+  font-size: 0.85rem;
+  color: var(--ink);
+  margin-bottom: 6px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.pub-meta {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--ink-dim);
+  line-height: 1.6;
+}
+
+.pub-me { color: var(--amber); font-weight: 400; }
+.pub-venue { color: var(--rust); }
+
+/* ── EXP CARDS ───────────────────────────── */
+.exp-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 10px;
+  transition: border-color 0.18s;
+}
+
+.exp-card:hover { border-color: var(--border-strong); }
+
+.exp-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 4px;
+  flex-wrap: wrap;
+}
+
+.exp-role {
+  font-family: var(--serif);
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.35;
+}
+
+.exp-date {
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--amber);
+  letter-spacing: 0.08em;
+  background: var(--amber-light);
+  border: 1px solid rgba(196,123,26,0.25);
+  padding: 4px 10px;
+  border-radius: 100px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.exp-org {
+  font-size: 0.78rem;
+  color: var(--ink-dim);
+  font-style: italic;
+  margin-bottom: 12px;
+}
+
+.exp-bullets { list-style: none; }
+
+.exp-bullets li {
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+  padding-left: 16px;
+  position: relative;
+  margin-bottom: 4px;
+  line-height: 1.6;
+}
+
+.exp-bullets li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--amber);
+  font-size: 0.6rem;
+  top: 4px;
+}
+
+/* ── AWARD ───────────────────────────────── */
+.award-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 24px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.award-year-badge {
+  background: var(--sidebar-bg);
+  color: var(--amber);
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.award-text { font-size: 0.85rem; color: var(--ink-muted); }
+
+/* ── CONTACT CARD ────────────────────────── */
+.contact-cta {
+  background: var(--sidebar-bg);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  text-align: center;
+  border: 1px solid rgba(196,123,26,0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.contact-cta::before {
+  content: '';
+  position: absolute;
+  top: -40px; left: 50%;
+  transform: translateX(-50%);
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,123,26,0.1) 0%, transparent 70%);
+}
+
+.contact-cta h2 {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  color: #f0e8d8;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.contact-cta p {
+  font-size: 0.85rem;
+  color: rgba(240,232,216,0.55);
+  margin-bottom: 24px;
+  position: relative;
+}
+
+.contact-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--amber);
+  color: #fff;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 11px 28px;
+  border-radius: 7px;
+  text-decoration: none;
+  transition: all 0.18s;
+  position: relative;
+}
+
+.contact-cta-btn:hover { background: var(--amber-bright); }
+
+/* ── FOOTER ──────────────────────────────── */
+.footer {
+  border-top: 1px solid var(--border);
+  padding: 20px 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--mono);
+  font-size: 0.6rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.08em;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── ANIMATIONS ──────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.section { animation: fadeUp 0.5s ease both; }
+.section:nth-child(1) { animation-delay: 0.05s; }
+.section:nth-child(2) { animation-delay: 0.1s; }
+.section:nth-child(3) { animation-delay: 0.15s; }
+.section:nth-child(4) { animation-delay: 0.2s; }
+
+/* ── SCROLLBAR ───────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(196,123,26,0.25); border-radius: 10px; }
+
+/* ── RESPONSIVE ──────────────────────────── */
+@media (max-width: 768px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; }
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .about-grid { grid-template-columns: 1fr; }
+  .edu-card { grid-template-columns: 1fr; }
+  .content { padding: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── SIDEBAR ────────────────────────────── -->
+<aside class="sidebar">
+  <div class="sidebar-top">
+    <div class="avatar">HA</div>
+    <div class="sidebar-name">Hassan Al Khawaldeh</div>
+    <div class="sidebar-role">Ph.D. Candidate</div>
+    <div class="sidebar-inst">Lehigh University · Bethlehem, PA</div>
+  </div>
+
+  <nav>
+    <div class="nav-group-label">Overview</div>
+    <a href="#about" class="nav-link active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      About
+    </a>
+    <a href="#education" class="nav-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+      Education
+    </a>
+    <a href="#research" class="nav-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      Research Interests
+    </a>
+
+    <div class="nav-group-label">Publications</div>
+    <a href="#publications" class="nav-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      Journal Articles
+      <span class="nav-badge">5</span>
+    </a>
+    <a href="#conferences" class="nav-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3 8 3M12 3v4"/></svg>
+      Conference Abstracts
+      <span class="nav-badge">22</span>
+    </a>
+
+    <div class="nav-group-label">Experience</div>
+    <a href="#campaigns" class="nav-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      Fusion Campaigns
+    </a>
+    <a href="#teaching" class="nav-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Teaching
+    </a>
+    <a href="#industry" class="nav-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+      Industry
+    </a>
+    <a href="#awards" class="nav-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+      Awards
+    </a>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <a href="mailto:alkhawaldeh@lehigh.edu" class="contact-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      alkhawaldeh@lehigh.edu
+    </a>
+    <a href="https://www.linkedin.com/in/alkhawaldeh" target="_blank" class="contact-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      linkedin / alkhawaldeh
+    </a>
+  </div>
+</aside>
+
+<!-- ── MAIN ───────────────────────────────── -->
+<main class="main">
+  <div class="page-header">
+    <span class="page-header-title">Academic Portfolio</span>
+    <div class="header-pills">
+      <span class="header-pill">Fusion Energy</span>
+      <span class="header-pill">Plasma Control</span>
+      <span class="header-pill">Adaptive Control</span>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- HERO -->
+    <div class="hero-card">
+      <div class="hero-eyebrow">Ph.D. Candidate · Mechanical Engineering &amp; Mechanics</div>
+      <h1 class="hero-h1">Plasma Control &amp;<br/><em>Predictive Modeling</em></h1>
+      <p class="hero-bio">I design adaptive and optimal control systems for plasma density regulation in tokamaks — bridging physics-based modeling, data-driven learning, and real-time experimental control toward fusion energy.</p>
+      <div class="hero-links">
+        <a href="mailto:alkhawaldeh@lehigh.edu" class="hero-btn hero-btn-primary">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Get in Touch
+        </a>
+        <a href="https://www.linkedin.com/in/alkhawaldeh" target="_blank" class="hero-btn hero-btn-ghost">LinkedIn</a>
+        <a href="#publications" class="hero-btn hero-btn-ghost">Publications</a>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-num">5</div>
+        <div class="stat-label">Journal Articles</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">22</div>
+        <div class="stat-label">Conference Abstracts</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Experimental Campaigns</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">4+</div>
+        <div class="stat-label">Years Research</div>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <div class="section" id="about">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <div class="section-title">About</div>
+      </div>
+      <div class="about-grid">
+        <div class="card">
+          <div class="card-label">Biography</div>
+          <div class="card-text">
+            <p>I am a Ph.D. candidate in Mechanical Engineering at Lehigh University, advised by Dr. Eugenio Schuster. My dissertation focuses on physics-based and data-driven predictive modeling and control of plasma density in tokamak fusion reactors.</p>
+            <p>My work spans adaptive control, optimal control, reinforcement learning, and system identification — all applied to pressing challenges in fusion energy research. I have conducted experimental campaigns at DIII-D (General Atomics, San Diego) and KSTAR (Korea Institute of Fusion Energy, Daejeon).</p>
+            <p>I completed my B.S. in Mechanical Engineering at Lehigh in 2021, with minors in Energy Engineering and Business Management, and was admitted into the Lehigh President's Scholar Program.</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-label">Details</div>
+          <div class="info-rows">
+            <div class="info-row"><span class="info-row-key">Status</span><span class="info-row-val">Ph.D. Candidate (2021–present)</span></div>
+            <div class="info-row"><span class="info-row-key">Dept.</span><span class="info-row-val">Mechanical Engineering &amp; Mechanics</span></div>
+            <div class="info-row"><span class="info-row-key">Institution</span><span class="info-row-val">Lehigh University, Bethlehem, PA</span></div>
+            <div class="info-row"><span class="info-row-key">Advisor</span><span class="info-row-val">Dr. Eugenio Schuster</span></div>
+            <div class="info-row"><span class="info-row-key">Email</span><span class="info-row-val"><a href="mailto:alkhawaldeh@lehigh.edu">alkhawaldeh@lehigh.edu</a></span></div>
+            <div class="info-row"><span class="info-row-key">LinkedIn</span><span class="info-row-val"><a href="https://linkedin.com/in/alkhawaldeh" target="_blank">alkhawaldeh</a></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EDUCATION -->
+    <div class="section" id="education">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+        </div>
+        <div class="section-title">Education</div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-year">2021 —<br/>Present</div>
+        <div>
+          <div class="edu-degree">Ph.D. in Mechanical Engineering</div>
+          <div class="edu-school">Lehigh University, Bethlehem, PA, USA</div>
+          <div class="edu-detail">Dissertation: Physics-Based and Data-Driven Predictive Modeling and Control of Plasma Density in Tokamaks</div>
+          <div class="edu-detail">Advisor: Dr. Eugenio Schuster</div>
+        </div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-year">2017 —<br/>2021</div>
+        <div>
+          <div class="edu-degree">B.S. in Mechanical Engineering</div>
+          <div class="edu-school">Lehigh University, Bethlehem, PA, USA</div>
+          <div class="edu-detail">Minors: Energy Engineering &amp; Business Management</div>
+          <div class="edu-detail">Admitted to Lehigh President's Scholar Program (2021)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RESEARCH -->
+    <div class="section" id="research">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </div>
+        <div class="section-title">Research Interests</div>
+      </div>
+      <div class="tag-cloud">
+        <span class="rtag">Adaptive Control</span>
+        <span class="rtag">Model-Reference Control</span>
+        <span class="rtag">Self-Tuning Control</span>
+        <span class="rtag">Optimal Control (LQR)</span>
+        <span class="rtag">Model Predictive Control</span>
+        <span class="rtag">Robust Control (H∞)</span>
+        <span class="rtag">Structured Uncertainty</span>
+        <span class="rtag">Nonlinear Control</span>
+        <span class="rtag">Feedback Linearization</span>
+        <span class="rtag">Lyapunov-Based Methods</span>
+        <span class="rtag">System Identification</span>
+        <span class="rtag">Koopman Operator Theory</span>
+        <span class="rtag">DMD</span>
+        <span class="rtag">Subspace Methods</span>
+        <span class="rtag">Gray-Box Modeling</span>
+        <span class="rtag">Reinforcement Learning</span>
+        <span class="rtag">Safe RL</span>
+        <span class="rtag">Physics-Informed Neural Networks</span>
+        <span class="rtag">Black-Box Neural Modeling</span>
+        <span class="rtag">Tokamak Plasma Control</span>
+        <span class="rtag">Fusion Energy</span>
+      </div>
+      <div class="research-blurb">
+        My research addresses the challenge of regulating plasma density in next-generation tokamaks such as ITER and beyond. I develop controllers that integrate physics-based transport models with machine learning techniques, enabling robust real-time control under highly uncertain reactor conditions — a critical step toward sustained thermonuclear fusion.
+      </div>
+    </div>
+
+    <!-- JOURNAL ARTICLES -->
+    <div class="section" id="publications">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <div class="section-title">Journal Articles</div>
+        <span class="section-count">5 articles</span>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Experimental Demonstration of Reactor-Relevant Adaptive Density Control on the DIII-D Tokamak with Coordinated Gas and Pellet Fueling</div>
+        <div class="pub-meta"><span class="pub-me">H. Al Khawaldeh</span>, A. Pajares, S. T. Paruchuri, V. Graber, T. Rafiq, E. Schuster, J.-W. Juhn, T. Pederson, D. Shiraki, F. Turco · <span class="pub-venue">Plasma Physics and Controlled Fusion</span> · Submitted 2026</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Density Regulation With Disruption Avoidance in Next-Generation Tokamaks Using a Safe Reinforcement Learning-Based Controller</div>
+        <div class="pub-meta">S. T. Paruchuri, I. Ward, N. Rist, V. Graber, <span class="pub-me">H. Al Khawaldeh</span>, Z. Wang, E. Schuster, A. Pajares, J.-W. Juhn · <span class="pub-venue">Fusion Engineering and Design</span> · vol. 216, 2025</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">NSTX-U Research Advancing the Physics of Spherical Tokamak (Collaboration Paper)</div>
+        <div class="pub-meta">J. W. Berkery, (<span class="pub-me">H. Al Khawaldeh</span>), et al. · <span class="pub-venue">Nuclear Fusion</span> · vol. 64, 2024</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Dynamic Actuator Allocation via Reinforcement Learning for Concurrent Plasma Control Objectives</div>
+        <div class="pub-meta">S. T. Paruchuri, V. Graber, <span class="pub-me">H. Al Khawaldeh</span>, E. Schuster · <span class="pub-venue">IEEE Transactions on Plasma Science</span> · vol. 52, 2024</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Model-Based Linear-Quadratic-Integral Controller for Simultaneous Regulation of the Current Profile and Normalized Beta in NSTX-U</div>
+        <div class="pub-meta"><span class="pub-me">H. Al Khawaldeh</span>, B. Leard, S. T. Paruchuri, T. Rafiq, E. Schuster · <span class="pub-venue">Fusion Engineering and Design</span> · vol. 192, 2023</div>
+      </div>
+    </div>
+
+    <!-- CONFERENCE ABSTRACTS -->
+    <div class="section" id="conferences">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8M12 3v4"/></svg>
+        </div>
+        <div class="section-title">Conference Abstracts</div>
+        <span class="section-count">22 abstracts</span>
+      </div>
+
+      <div class="pub-group-label">2026</div>
+
+      <div class="pub-item">
+        <div class="pub-title">Demonstration of Real-Time Multi-Actuator Plasma Density Control in KSTAR via Adaptive Fueling</div>
+        <div class="pub-meta"><span class="pub-me">H. Al Khawaldeh</span>, S. T. Paruchuri, V. Graber, T. Rafiq, E. Schuster, A. Pajares, J. W. Juhn, S. H. Park · <span class="pub-venue">34th Symposium on Fusion Technology (SOFT)</span> · Aix-en-Provence, France, Sep 2026</div>
+      </div>
+
+      <div class="pub-group-label">2025</div>
+
+      <div class="pub-item">
+        <div class="pub-title">Coordinated Gas and Pellet Fueling for Plasma Density in KSTAR Under Reactor-Relevant Conditions</div>
+        <div class="pub-meta"><span class="pub-me">H. Al Khawaldeh</span>, V. Graber, S. T. Paruchuri, T. Rafiq, E. Schuster · <span class="pub-venue">67th APS DPP Annual Meeting</span> · Long Beach, CA, Nov 2025</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">ITER-Relevant Density Control with Pellets in DIII-D's ITER Baseline Scenario</div>
+        <div class="pub-meta">A. Pajares, <span class="pub-me">H. Al Khawaldeh</span>, F. Turco, D. Shiraki, T. Pederson, D. Eldon, J-W. Juhn, V. Graber, S. T. Paruchuri, E. Schuster · <span class="pub-venue">67th APS DPP Annual Meeting</span> · Long Beach, CA, Nov 2025</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Nonlinear Adaptive Control of Deuterium-Tritium Density Ratio in ITER</div>
+        <div class="pub-meta">S. T. Paruchuri, <span class="pub-me">H. Al Khawaldeh</span>, V. Graber, E. Schuster · <span class="pub-venue">67th APS DPP Annual Meeting</span> · Long Beach, CA, Nov 2025</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Predictive Transport Modeling of KSTAR Advanced Scenarios Using COTSIM</div>
+        <div class="pub-meta">Y. Tao, B. Leard, <span class="pub-me">H. Al Khawaldeh</span>, T. Rafiq, E. Schuster · <span class="pub-venue">67th APS DPP Annual Meeting</span> · Long Beach, CA, Nov 2025</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Pellet Injection-Based Model Predictive Control of the Density Profile in Tokamaks by Leveraging Deep Reinforcement Learning</div>
+        <div class="pub-meta">Z. Wang, S. T. Paruchuri, <span class="pub-me">H. Al Khawaldeh</span>, T. Rafiq, E. Schuster · <span class="pub-venue">31st IEEE Symposium on Fusion Energy (SOFE)</span> · Cambridge, MA, Jun 2025</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Adaptive Control of Plasma Density in Tokamaks Using Coordinated Gas Puffing and Pellet Injection</div>
+        <div class="pub-meta"><span class="pub-me">H. Al Khawaldeh</span>, S. T. Paruchuri, E. Schuster, A. Pajares, J. W. Juhn · <span class="pub-venue">31st IEEE Symposium on Fusion Energy (SOFE)</span> · Cambridge, MA, Jun 2025</div>
+      </div>
+
+      <div class="pub-group-label">2024</div>
+
+      <div class="pub-item">
+        <div class="pub-title">Advanced Density Regulation for ITER Emulated Scenarios on DIII-D via Adaptive Control Techniques</div>
+        <div class="pub-meta"><span class="pub-me">H. Al Khawaldeh</span>, S. T. Paruchuri, V. Graber, T. Rafiq, E. Schuster, A. Pajares, J. W. Juhn · <span class="pub-venue">66th APS DPP Annual Meeting</span> · Atlanta, GA, Oct 2024</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Assessing Model-based and Learning-based Strategies for Active Density Regulation in ITER</div>
+        <div class="pub-meta">S. T. Paruchuri, <span class="pub-me">H. Al Khawaldeh</span>, V. Graber, Z. Wang, N. Rist, I. Ward, T. Rafiq, E. Schuster, A. Pajares, J. W. Juhn · <span class="pub-venue">66th APS DPP Annual Meeting</span> · Atlanta, GA, Oct 2024</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Simultaneous Regulation of the Dimensionless Gain and Density by Real-time Estimation of Confinement Times</div>
+        <div class="pub-meta"><span class="pub-me">H. Al Khawaldeh</span>, S. T. Paruchuri, T. Rafiq, E. Schuster · <span class="pub-venue">33rd Symposium on Fusion Technology (SOFT)</span> · Dublin, Ireland, Sep 2024</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Safe Reinforcement Learning-based Controller for Disruption Free Regulation of Plasma Density in Next-generation Tokamaks</div>
+        <div class="pub-meta">S. T. Paruchuri, <span class="pub-me">H. Al Khawaldeh</span>, V. Graber, E. Schuster, A. Pajares, J-W. Juhn · <span class="pub-venue">33rd Symposium on Fusion Technology (SOFT)</span> · Dublin, Ireland, Sep 2024</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Advanced Model-based Density Control on KSTAR as Testbed for ITER Operation</div>
+        <div class="pub-meta">E. Schuster, S. T. Paruchuri, <span class="pub-me">H. Al Khawaldeh</span>, V. Graber, T. Sing, A. Pajares, J-W. Juhn, S. Park · <span class="pub-venue">3rd International Fusion and Plasma Conference (iFPC)</span> · Seoul, South Korea, Jun 2024</div>
+      </div>
+
+      <div class="pub-group-label">2023</div>
+
+      <div class="pub-item">
+        <div class="pub-title">Model-Based Control of the Dimensionless Gain in KSTAR by Leveraging Real-time Estimation of the Confinement Time</div>
+        <div class="pub-meta"><span class="pub-me">H. Al Khawaldeh</span>, S. T. Paruchuri, T. Rafiq, E. Schuster · <span class="pub-venue">65th APS DPP Annual Meeting</span> · Denver, CO, Oct–Nov 2023</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Simultaneous Optimal Regulation of Kinetic+Magnetic Scalar Plasma Properties for Robust Sustainment of Advanced Scenarios in NSTX-U</div>
+        <div class="pub-meta"><span class="pub-me">H. Al Khawaldeh</span>, S. T. Paruchuri, Z. Wang, T. Rafiq, E. Schuster · <span class="pub-venue">29th IAEA Fusion Energy Conference</span> · London, UK, Oct 2023</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Towards Density Profile Regulation via Pellet Injection in Tokamaks Following a Hybrid Model Predictive Control Approach</div>
+        <div class="pub-meta">L. Yang, <span class="pub-me">H. Al Khawaldeh</span>, S. T. Paruchuri, X. Song, Z. Wang, E. Schuster · <span class="pub-venue">29th IAEA Fusion Energy Conference</span> · London, UK, Oct 2023</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">NSTX-U Research Advancing the Physics of Spherical Tokamaks (Collaboration Paper)</div>
+        <div class="pub-meta">J. W. Berkery, (<span class="pub-me">H. Al Khawaldeh</span>), et al. · <span class="pub-venue">29th IAEA Fusion Energy Conference</span> · London, UK, Oct 2023</div>
+      </div>
+
+      <div class="pub-group-label">2022</div>
+
+      <div class="pub-item">
+        <div class="pub-title">Model-Based Optimal Control of Core Kinetic+Magnetic Profiles and Scalar Plasma Properties in NSTX-U</div>
+        <div class="pub-meta"><span class="pub-me">H. Al Khawaldeh</span>, B. Leard, S. T. Paruchuri, T. Rafiq, E. Schuster · <span class="pub-venue">64th APS DPP Annual Meeting</span> · Spokane, WA, Oct 2022</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Development of COTSIM+NUBEAMNet One-Dimensional Predictive Simulation Capability for Scenario Optimization in NSTX-U</div>
+        <div class="pub-meta">B. Leard, C. Clauser, <span class="pub-me">H. Al Khawaldeh</span>, T. Rafiq, E. Schuster · <span class="pub-venue">64th APS DPP Annual Meeting</span> · Spokane, WA, Oct 2022</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Model-Based Linear-Quadratic-Integral Controller for Simultaneous Regulation of Current Profile and Normalized Beta in NSTX-U</div>
+        <div class="pub-meta"><span class="pub-me">H. Al Khawaldeh</span>, B. Leard, S. T. Paruchuri, T. Rafiq, E. Schuster · <span class="pub-venue">32nd Symposium on Fusion Technology (SOFT)</span> · Dubrovnik, Croatia, Sep 2022</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">Model-based LQI Controller for Simultaneous Regulation of the Current Profile and Normalized Beta in NSTX-U</div>
+        <div class="pub-meta"><span class="pub-me">H. Al Khawaldeh</span>, B. Leard, S. T. Paruchuri, T. Rafiq, E. Schuster · <span class="pub-venue">11th ITER International School on ITER Plasma Scenarios and Control</span> · San Diego, CA, Jul 2022</div>
+      </div>
+
+      <div class="pub-group-label">2021</div>
+
+      <div class="pub-item">
+        <div class="pub-title">COTSIM-based Optimization of Transport Diffusivity Model for Predictive Simulations of NSTX-U Discharges</div>
+        <div class="pub-meta"><span class="pub-me">H. Al Khawaldeh</span>, A. Pajares, T. Rafiq, E. Schuster · <span class="pub-venue">63rd APS DPP Annual Meeting</span> · Pittsburgh, PA, Nov 2021</div>
+      </div>
+
+      <div class="pub-item">
+        <div class="pub-title">COTSIM-based Gain Optimizer for Feedback Control of Advanced Scenarios in NSTX-U</div>
+        <div class="pub-meta">Y. Manjetta, <span class="pub-me">H. Al Khawaldeh</span>, T. Rafiq, E. Schuster · <span class="pub-venue">63rd APS DPP Annual Meeting</span> · Pittsburgh, PA (Remote), Nov 2021</div>
+      </div>
+    </div>
+
+    <!-- EXPERIMENTAL CAMPAIGNS -->
+    <div class="section" id="campaigns">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <div class="section-title">Experimental Campaigns</div>
+        <span class="section-count">Major fusion facilities</span>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-role">Advanced Density Regulation for ITER and Future Reactors by Simultaneous Gas Puffing and Pellet Injection</div>
+          <span class="exp-date">March 2026</span>
+        </div>
+        <div class="exp-org">KSTAR (Korea Superconducting Tokamak Advanced Research) · Korea Institute of Fusion Energy, Daejeon, South Korea</div>
+        <ul class="exp-bullets">
+          <li>Cooperated with the KFE research team to develop and successfully conduct the experiment.</li>
+          <li>Integrated and validated the plasma control system to emulate ITER-like actuation conditions.</li>
+          <li>Conducted plasma experiments with gas puffing and pellet injection in feedback under reactor-relevant conditions.</li>
+          <li>Demonstrated the performance of a model-based adaptive plasma density controller to operate under future reactor conditions.</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-role">Proximity Control and Safe Reinforcement Learning Algorithms for Plasma Regulation with Stability-Limit Avoidance</div>
+          <span class="exp-date">March 2026</span>
+        </div>
+        <div class="exp-org">KSTAR (Korea Superconducting Tokamak Advanced Research) · Korea Institute of Fusion Energy, Daejeon, South Korea</div>
+        <ul class="exp-bullets">
+          <li>Developed predictive models for training, testing, and validating safe plasma regulation algorithms.</li>
+          <li>Identified operational regions associated with critical plasma-density stability limits.</li>
+          <li>Contributed to control strategies to maintain plasma states within stability limits while preserving tracking performance and controllability.</li>
+          <li>Demonstrated safety-prioritized control behavior, in which the controller reduces tracking aggressiveness as the plasma state approaches operational limits.</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-role">Advanced Density Control in DIII-D for ITER and Beyond</div>
+          <span class="exp-date">June 2025</span>
+        </div>
+        <div class="exp-org">DIII-D National Fusion Facility · General Atomics, San Diego, CA, USA</div>
+        <ul class="exp-bullets">
+          <li>Cooperated with the GA research team to develop and successfully conduct the experiment.</li>
+          <li>Developed a model reference adaptive plasma density controller for future reactor conditions.</li>
+          <li>Demonstrated real-time multi-actuator density regulation under ITER-relevant scenarios.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- TEACHING -->
+    <div class="section" id="teaching">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="section-title">Teaching &amp; Supervision</div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-role">Student Mentor</div>
+          <span class="exp-date">2021 — Present</span>
+        </div>
+        <div class="exp-org">Lehigh University — Plasma Control Lab</div>
+        <ul class="exp-bullets">
+          <li>Supported junior students in developing simulation frameworks using physics-based and neural-network surrogate models for modeling and predictive analysis.</li>
+          <li>Mentored junior students in the design and implementation of model-based and data-driven control strategies.</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-role">Peer Tutor</div>
+          <span class="exp-date">2020 — 2021</span>
+        </div>
+        <div class="exp-org">Lehigh University, Bethlehem, PA</div>
+        <ul class="exp-bullets">
+          <li>Provided one-on-one and small-group tutoring in core mechanical engineering courses.</li>
+          <li>Assisted students by reviewing coursework, clarifying challenging topics, and guiding them through analytical and computational problems.</li>
+          <li>Developed study guides and shared effective study strategies to reinforce foundational engineering knowledge and improve academic performance.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- INDUSTRY -->
+    <div class="section" id="industry">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg>
+        </div>
+        <div class="section-title">Academic &amp; Industry Engagements</div>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-role">Research Assistant — Biomedical Mechanics</div>
+          <span class="exp-date">Jun–Aug 2020</span>
+        </div>
+        <div class="exp-org">Data for Impact · Lehigh University, Bethlehem, PA</div>
+        <ul class="exp-bullets">
+          <li>Investigated the mechanical behavior of von Willebrand factor under applied forces to better understand its role in bleeding disorders.</li>
+          <li>Performed computational simulations to study protein deformation and elongation under varying mechanical conditions.</li>
+          <li>Analyzed simulation results to identify and generalize relationships between molecular-scale mechanics and clinically relevant bleeding behavior.</li>
+        </ul>
+      </div>
+
+      <div class="exp-card">
+        <div class="exp-header">
+          <div class="exp-role">Consultant — Capstone: Dorman Industries</div>
+          <span class="exp-date">Jan–Dec 2020</span>
+        </div>
+        <div class="exp-org">Lehigh University, Bethlehem, PA</div>
+        <ul class="exp-bullets">
+          <li>Led a multidisciplinary student team to design an improved diesel engine exhaust gas recirculation (EGR) cooler using CAD tools and heat transfer principles.</li>
+          <li>Researched and evaluated failures in the Detroit Diesel 60 engine Exhaust Gas Recirculation (EGR) Cooler.</li>
+          <li>Conducted finite element (FEA) and computational fluid dynamics (CFD) analysis, resulting in a 9.77% increase in structural yield strength and a 23.8% reduction in noxious emissions.</li>
+          <li>Developed and iterated detailed CAD models for the redesigned EGR cooler to address thermal and structural performance limitations.</li>
+          <li>Collaborated with process engineers to assess manufacturing feasibility and cost implications of the proposed design.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- AWARDS -->
+    <div class="section" id="awards">
+      <div class="section-header">
+        <div class="section-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+        </div>
+        <div class="section-title">Awards</div>
+      </div>
+
+      <div class="award-card">
+        <span class="award-year-badge">2021</span>
+        <div class="award-text">Admitted into the <strong>Lehigh President's Scholar Program</strong> — awarded to students with academic excellence, offering one year of tuition-free study.</div>
+      </div>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="section" id="contact">
+      <div class="contact-cta">
+        <h2>Let's Connect</h2>
+        <p>Open to research collaborations, fusion control discussions, and academic opportunities.</p>
+        <a href="mailto:alkhawaldeh@lehigh.edu" class="contact-cta-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          alkhawaldeh@lehigh.edu
+        </a>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <div class="footer">
+    <span>© 2026 Hassan Al Khawaldeh · Lehigh University</span>
+    <span>References available on request</span>
+  </div>
+</main>
+
+<script>
+const links = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('.section[id]');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      links.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px' });
+
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
